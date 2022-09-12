@@ -1,6 +1,9 @@
 package condiment
 
-import "decorator-pattern/beverage"
+import (
+	"decorator-pattern/beverage"
+	"fmt"
+)
 
 type Milk struct {
 	Beverage    beverage.Beverage
@@ -8,20 +11,18 @@ type Milk struct {
 	Description string
 }
 
-func NewMilk(b beverage.Beverage, p float64) *Milk {
+func NewMilk(b beverage.Beverage) beverage.Beverage {
 	return &Milk{
 		Beverage:    b,
-		Price:       p,
+		Price:       MilkPrice,
 		Description: "Milk",
 	}
 }
 
-func (c *Milk) GetPrice() {
-	//TODO implement me
-	panic("implement me")
+func (c *Milk) GetPrice() float64 {
+	return c.Price + c.Beverage.GetPrice()
 }
 
-func (c *Milk) GetDescription() {
-	//TODO implement me
-	panic("implement me")
+func (c *Milk) GetDescription() string {
+	return fmt.Sprintf("%s %s", c.Beverage.GetDescription(), c.Description)
 }

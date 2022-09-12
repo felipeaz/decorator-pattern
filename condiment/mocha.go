@@ -1,6 +1,9 @@
 package condiment
 
-import "decorator-pattern/beverage"
+import (
+	"decorator-pattern/beverage"
+	"fmt"
+)
 
 type Mocha struct {
 	Beverage    beverage.Beverage
@@ -8,20 +11,18 @@ type Mocha struct {
 	Description string
 }
 
-func NewMocha(b beverage.Beverage, p float64) *Mocha {
+func NewMocha(b beverage.Beverage) beverage.Beverage {
 	return &Mocha{
 		Beverage:    b,
-		Price:       p,
-		Description: "Milk",
+		Price:       MochaPrice,
+		Description: "Mocha",
 	}
 }
 
-func (m *Mocha) GetPrice() {
-	//TODO implement me
-	panic("implement me")
+func (m *Mocha) GetPrice() float64 {
+	return m.Price + m.Beverage.GetPrice()
 }
 
-func (m *Mocha) GetDescription() {
-	//TODO implement me
-	panic("implement me")
+func (m *Mocha) GetDescription() string {
+	return fmt.Sprintf("%s %s", m.Beverage.GetDescription(), m.Description)
 }
